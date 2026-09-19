@@ -2,6 +2,6 @@
 #define SPLIT_BEAM_H
 
 #include <stdio.h>
-size_t count_split_beam(const FILE *file);
+size_t count_split_beam(FILE *file);
 
 #endif // !SPLIT_BEAM_H

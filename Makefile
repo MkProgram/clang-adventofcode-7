@@ -31,7 +31,7 @@ test: $(TESTS)
 	@for t in $(TESTS); do ./$$t || exit 1; done
 
 run: $(BIN)
-	./$(BIN)
+	/bin/sh -c "time ./$(BIN)"
 
 clean: 
 	rm -rf build/*
