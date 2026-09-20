@@ -33,6 +33,22 @@ size_t count_split_beam(FILE *file) {
     }
   }
 
+  while (getline(&line, &linecapp, file) != -1) {
+    SizeVec split_pos = {0};
+
+    size_t found = find_character_positions(line, '^', &split_pos);
+    if (found == 0) {
+      size_vec_free(&split_pos);
+      continue;
+    }
+    size_vec_free(&beam_positions);
+
+    for (size_t i = 0; i < found; ++i) {
+    }
+
+    size_vec_free(&split_pos);
+  }
+
   if (line != NULL) {
     free(line);
   }
