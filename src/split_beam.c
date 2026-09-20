@@ -19,6 +19,17 @@ size_t find_character_positions(const char *line, const char needle,
   return found;
 }
 
+bool find_starting_position(char *line, FILE *file, SizeVec *beam_positions) {
+  size_t linecapp = 0;
+  if (getline(&line, &linecapp, file) != -1) {
+    if (find_character_positions(line, 'S', beam_positions) == 0) {
+      fprintf(stderr, "Cannot find starting position.");
+      return false;
+    }
+  }
+  return true;
+}
+
 size_t count_split_beam(FILE *file) {
   size_t splits = 0;
   SizeVec beam_positions = {0};
@@ -26,11 +37,8 @@ size_t count_split_beam(FILE *file) {
   char *line = NULL;
   size_t linecapp = 0;
 
-  if (getline(&line, &linecapp, file) != -1) {
-    if (find_character_positions(line, 'S', &beam_positions) == 0) {
-      fprintf(stderr, "Cannot find starting position.");
-      return 0;
-    }
+  if (find_starting_position(line, file, &beam_positions) == false) {
+    return 0;
   }
 
   while (getline(&line, &linecapp, file) != -1) {
