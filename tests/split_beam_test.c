@@ -47,10 +47,35 @@ size_t test_find_character_positions(void) {
   return failures;
 }
 
+size_t test_example_file(void) {
+  const char *floc = "tests/example.txt";
+  const size_t expected = 21;
+
+  FILE *file = NULL;
+
+  file = fopen(floc, "r");
+
+  if (file == NULL) {
+    fprintf(stderr, "Cannot open file: %s", floc);
+    return 1;
+  }
+
+  size_t actual = count_split_beam(file);
+
+  if (actual != expected) {
+    fprintf(stderr, "FAILURE: Example File: Expected %zu, found %zu\n",
+            expected, actual);
+    return 1;
+  }
+
+  return 0;
+}
+
 int main(void) {
   size_t failures = 0;
 
   failures += test_find_character_positions();
+  failures += test_example_file();
 
   if (failures == 0) {
     return EXIT_SUCCESS;
